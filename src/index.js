@@ -8,16 +8,21 @@ import reducers from './reducers/app';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import PostsIndex from './components/posts_index'
 import promise from 'redux-promise'
-
+import PostsNew from './components/posts_new'
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
+//the most specific router in the top
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
     <div>
+    <Switch>
+      <Route path="/posts/new" component={PostsNew} />
       <Route path="/" component={PostsIndex} />
+    </Switch>
+
     </div>
     </BrowserRouter>
   </Provider>, document.getElementById('root'));
