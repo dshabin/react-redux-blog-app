@@ -1,10 +1,25 @@
-import { FETCH_POSTS } from '../actions/app';
+import { FETCH_POSTS ,FETCH_POST,DELETE_POST } from '../actions/app';
 import _ from 'lodash'
 
 export default function (state = {},action) {
   switch (action.type){
   case FETCH_POSTS:
     return _.mapKeys(action.payload.data, "id");
+  case FETCH_POST:
+    const post = action.payload.data
+    //take all my current posts that i have
+    //ES5
+    //const newState =  { ...state   };
+    //newState[post.id] = post;
+    //return newState
+    return { ...state , [action.payload.data.id]:action.payload.data }
+
+  //to update local state
+  case DELETE_POST:
+    // look at the state object if the state object
+    //has the key the post id just drop it
+    return _.omit(state, action.payload)
+
   default :
     return state
   }
